@@ -1,0 +1,38 @@
+import streamlit as st
+import streamlit.components.v1 as components
+
+# 1. टाइटल
+st.title("🤖 अर्जुन का सुपर AI असिस्टेंट")
+
+# 2. वॉइस सपोर्ट (बोलने वाला फीचर)
+def speak_text(text):
+    js_code = f"""
+    <script>
+        var msg = new SpeechSynthesisUtterance("{text}");
+        window.speechSynthesis.speak(msg);
+    </script>
+    """
+    components.html(js_code, height=0)
+
+# 3. नॉलेज बेस और जवाब
+user_input = st.chat_input("दुनिया की कोई भी बात पूछें या मुझसे बात करें...")
+
+if user_input:
+    st.write(f"**अर्जुन:** {user_input}")
+    
+    # रोमांटिक मूड
+    if any(word in user_input.lower() for word in ["प्यार", "रोमांटिक", "love", "romantic", "याद"]):
+        response = "✨ मेरी आँखों में देखो, तुम मेरी सबसे प्यारी मुस्कान हो।"
+    # सवाल-जवाब
+    elif "नाम" in user_input:
+        response = "मैं अर्जुन का पर्सनल एआई असिस्टेंट हूँ।"
+    else:
+        response = "मैं एक बहुत ही स्मार्ट एआई हूँ, मैं दुनिया की हर बात जानता हूँ। पूछिए, मैं आपकी क्या मदद करूँ?"
+    
+    st.write(f"**AI:** {response}")
+    # बोलकर जवाब दें
+    speak_text(response)
+
+# 4. फोटो एडिटर का बटन (लिंक के रूप में)
+if st.sidebar.button("फोटो एडिटर खोलें"):
+    st.write("यहाँ से आप अपनी फोटो एडिट कर सकते हैं!")
